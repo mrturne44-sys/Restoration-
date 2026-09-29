@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chez Maman Nzuzi – Kinshasa</title>
+<meta name="description" content="Poulet moambe, liboke de poisson, pondu et brochettes. Commandez sur WhatsApp.">
+<style>
+  :root{
+    --vert:#123A2C;
+    --vert-clair:#E6EFE8;
+    --huile:#F0B323;
+    --piment:#B8321F;
+    --encre:#1A1F1C;
+    --papier:#F7FAF6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--encre);background:var(--papier);line-height:1.55;font-size:17px}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.1;letter-spacing:-.01em}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--huile);outline-offset:3px}
+
+  header{background:var(--vert);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+  header strong{font-family:Georgia,serif;font-size:1.1rem}
+  header a.tel{background:var(--huile);color:var(--vert);text-decoration:none;font-weight:700;padding:8px 14px;border-radius:999px;font-size:.9rem}
+
+  .hero{background:var(--vert);color:#fff;padding:36px 20px 56px}
+  .hero-inner{max-width:760px;margin:0 auto}
+  .hero p.lead{color:#CFE0D4;max-width:34ch;margin:14px 0 28px}
+  .hero h1{font-size:clamp(2.4rem,9vw,4.4rem);max-width:12ch}
+  .du-jour{background:var(--huile);color:var(--vert);border-radius:18px;padding:22px;max-width:420px;box-shadow:6px 6px 0 rgba(0,0,0,.25)}
+  .du-jour small{font-weight:700;font-size:.95rem}
+  .du-jour h2{font-size:1.9rem;margin:6px 0 4px}
+  .du-jour p{margin-bottom:14px}
+  .prix{font-weight:700}
+
+  .btn{display:inline-block;background:var(--vert);color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:12px;border:0;font-size:1rem;cursor:pointer;font-family:inherit}
+  .btn.wa{background:#1FA855}
+  .btn:active{transform:translateY(1px)}
+
+  main{max-width:760px;margin:0 auto;padding:0 20px}
+  section{padding:48px 0 8px}
+  section > h2{font-size:2rem;margin-bottom:6px;color:var(--vert)}
+  section > p.sub{color:#4D5A52;margin-bottom:22px}
+  .categorie{margin-bottom:34px}
+  .categorie h3{font-size:1.35rem;color:var(--piment);border-bottom:2px solid var(--vert);padding-bottom:6px;margin-bottom:6px}
+  .plat{display:grid;grid-template-columns:1fr auto;gap:4px 14px;padding:14px 0;border-bottom:1px dashed #B9C8BD}
+  .plat h4{font-size:1.05rem}
+  .plat p{grid-column:1;color:#4D5A52;font-size:.93rem}
+  .plat .p{grid-column:2;grid-row:1;text-align:right;font-weight:700;white-space:nowrap}
+  .plat .p span{display:block;font-weight:400;font-size:.85rem;color:#4D5A52}
+  .plat button{grid-column:1 / -1;justify-self:start;margin-top:6px;background:var(--vert-clair);color:var(--vert);border:0;font-weight:700;padding:9px 14px;border-radius:10px;font-size:.92rem;cursor:pointer;font-family:inherit}
+
+  .infos{background:var(--vert-clair);border-radius:18px;padding:24px;margin:30px 0 0}
+  .infos h2{font-size:1.6rem;margin-bottom:12px;color:var(--vert)}
+  .infos dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px}
+  .infos dt{font-weight:700}
+  .infos .btn{margin-top:18px}
+
+  footer{text-align:center;padding:36px 20px 90px;color:#4D5A52;font-size:.85rem}
+  footer a{display:inline-block;margin-top:8px;color:#4D5A52}
+
+  .flottant{position:fixed;right:16px;bottom:16px;background:#1FA855;color:#fff;text-decoration:none;font-weight:700;padding:14px 20px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.3);z-index:6}
+
+  /* Éditeur (espace propriétaire) */
+  #editeur{position:fixed;inset:0;background:#fff;z-index:30;display:flex;flex-direction:column}
+  .ed-haut{background:var(--vert);color:#fff;padding:14px 18px}
+  .ed-haut h2{font-size:1.25rem}
+  .ed-haut p{font-size:.88rem;color:#CFE0D4;margin-top:4px}
+  .ed-corps{flex:1;overflow-y:auto;padding:16px 18px 24px}
+  .ed-corps h3{font-size:1.15rem;color:var(--vert);margin:22px 0 8px}
+  .ed-corps h3:first-child{margin-top:0}
+  .champ{display:block;margin-bottom:12px}
+  .champ span{display:block;font-size:.85rem;font-weight:700;margin-bottom:4px}
+  .champ input,.champ textarea{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:2px solid #B9C8BD;border-radius:10px;background:#fff;color:var(--encre)}
+  .champ textarea{min-height:70px;resize:vertical}
+  .ed-cat{border:2px solid var(--vert);border-radius:14px;padding:14px;margin-bottom:18px}
+  .ed-plat{background:var(--vert-clair);border-radius:12px;padding:12px;margin:12px 0}
+  .ed-corps button{font:inherit;font-weight:700;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+  .ed-add{background:var(--vert);color:#fff;margin-right:8px;margin-top:4px}
+  .ed-sup{background:#fff;color:var(--piment);border:2px solid var(--piment)!important}
+  .ed-bas{display:flex;gap:10px;padding:12px 18px;border-top:2px solid var(--vert-clair);background:#fff}
+  .ed-bas button{flex:1;font:inherit;font-weight:700;border:0;border-radius:12px;padding:14px;cursor:pointer;font-size:1rem}
+  .ed-dl{background:var(--huile);color:var(--vert)}
+  .ed-fermer{background:var(--vert-clair);color:var(--vert)}
+
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  @media (min-width:700px){.plat{grid-template-columns:1fr auto auto;align-items:center}.plat button{grid-column:3;grid-row:1;margin:0}.plat .p{grid-column:2}}
+</style>
+</head>
+<body>
+
+<!--
+  ============================================================
+  INFOS DU SITE. Tu peux les changer ici, ou plus simplement
+  avec l'éditeur : ajoute #modifier à la fin de l'adresse du site.
+  ============================================================
+-->
+<script>
+const CONFIG = {
+  "nom": "Chez Maman Nzuzi",
+  "accroche": "Cuisine congolaise faite maison, servie chaude.",
+  "ville": "Kinshasa",
+  "whatsapp": "243800000000",
+  "telephone": "+243 800 000 000",
+  "adresse": "Avenue de la Paix, Gombe, Kinshasa",
+  "horaires": "Lundi au samedi, 10h à 21h",
+  "platDuJour": {
+    "nom": "Poulet moambe",
+    "description": "Poulet mijoté dans la sauce de noix de palme, avec riz et chikwangue.",
+    "prixUSD": 6,
+    "prixFC": 15000
+  },
+  "menu": [
+    {
+      "categorie": "Plats",
+      "plats": [
+        {"nom": "Poulet moambe", "desc": "Sauce de noix de palme, riz ou chikwangue.", "usd": 6, "fc": 15000},
+        {"nom": "Liboke de poisson", "desc": "Poisson cuit dans les feuilles de bananier, avec épices.", "usd": 7, "fc": 17500},
+        {"nom": "Pondu et poisson salé", "desc": "Feuilles de manioc pilées, huile de palme.", "usd": 4, "fc": 10000},
+        {"nom": "Saka-saka et fufu", "desc": "Feuilles de manioc, fufu chaud.", "usd": 4, "fc": 10000}
+      ]
+    },
+    {
+      "categorie": "Grillades",
+      "plats": [
+        {"nom": "Brochettes de bœuf (5)", "desc": "Grillées au feu de bois, pili-pili à part.", "usd": 3, "fc": 7500},
+        {"nom": "Poulet braisé (demi)", "desc": "Mariné 12 heures, servi avec bananes plantain.", "usd": 8, "fc": 20000}
+      ]
+    },
+    {
+      "categorie": "Boissons",
+      "plats": [
+        {"nom": "Jus de gingembre", "desc": "Fait maison, bien frais.", "usd": 1, "fc": 2500},
+        {"nom": "Jus de bissap", "desc": "Fleurs d'hibiscus, citron.", "usd": 1, "fc": 2500}
+      ]
+    }
+  ]
+};
+</script>
+
+<header>
+  <strong id="h-nom"></strong>
+  <a class="tel" id="h-tel" href="#">Appeler</a>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <h1 id="hero-titre"></h1>
+    <p class="lead" id="hero-accroche"></p>
+    <div class="du-jour">
+      <small>Plat du jour</small>
+      <h2 id="dj-nom"></h2>
+      <p id="dj-desc"></p>
+      <p class="prix" id="dj-prix"></p>
+      <button class="btn wa" id="dj-btn" type="button">Commander sur WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section id="menu">
+    <h2>Notre menu</h2>
+    <p class="sub">Touchez « Commander » sur un plat, WhatsApp s'ouvre avec votre message prêt.</p>
+    <div id="menu-liste"></div>
+  </section>
+
+  <section class="infos" id="infos">
+    <h2>Nous trouver</h2>
+    <dl>
+      <dt>Adresse</dt><dd id="i-adresse"></dd>
+      <dt>Horaires</dt><dd id="i-horaires"></dd>
+      <dt>Téléphone</dt><dd id="i-tel"></dd>
+    </dl>
+    <a class="btn wa" id="i-btn" href="#">Nous écrire sur WhatsApp</a>
+  </section>
+</main>
+
+<footer>
+  <div id="pied"></div>
+  <a href="#modifier">Espace propriétaire</a>
+</footer>
+
+<a class="flottant" id="flot" href="#">WhatsApp</a>
+
+<script>
+// Copie du fichier d'origine, prise avant tout affichage.
+const SOURCE = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+
+const $ = id => document.getElementById(id);
+const fc = n => Number(n).toLocaleString("fr-FR") + " FC";
+const wa = msg => "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+const commande = nom => wa("Bonjour " + CONFIG.nom + ", je voudrais commander : " + nom + ".");
+
+function render(){
+  const c = CONFIG;
+  document.title = c.nom + " – " + c.ville;
+  $("h-nom").textContent = c.nom;
+  $("h-tel").href = "tel:" + c.telephone.replace(/\s/g,"");
+  $("hero-titre").textContent = c.nom;
+  $("hero-accroche").textContent = c.accroche;
+
+  const dj = c.platDuJour;
+  $("dj-nom").textContent = dj.nom;
+  $("dj-desc").textContent = dj.description;
+  $("dj-prix").textContent = dj.prixUSD + " $  |  " + fc(dj.prixFC);
+  $("dj-btn").onclick = () => window.open(commande(CONFIG.platDuJour.nom), "_blank");
+
+  const liste = $("menu-liste");
+  liste.textContent = "";
+  c.menu.forEach(cat => {
+    const bloc = document.createElement("div");
+    bloc.className = "categorie";
+    const h = document.createElement("h3");
+    h.textContent = cat.categorie;
+    bloc.appendChild(h);
+    cat.plats.forEach(p => {
+      const d = document.createElement("div");
+      d.className = "plat";
+      const t = document.createElement("h4"); t.textContent = p.nom;
+      const de = document.createElement("p"); de.textContent = p.desc;
+      const pr = document.createElement("div"); pr.className = "p";
+      pr.textContent = p.usd + " $";
+      const s = document.createElement("span"); s.textContent = fc(p.fc);
+      pr.appendChild(s);
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = "Commander";
+      b.onclick = () => window.open(commande(p.nom), "_blank");
+      d.append(t, de, pr, b);
+      bloc.appendChild(d);
+    });
+    liste.appendChild(bloc);
+  });
+
+  $("i-adresse").textContent = c.adresse;
+  $("i-horaires").textContent = c.horaires;
+  $("i-tel").textContent = c.telephone;
+  const general = wa("Bonjour " + c.nom + ", j'ai une question.");
+  $("i-btn").href = general;
+  $("flot").href = general;
+  $("pied").textContent = c.nom + ", " + c.ville;
+}
+
+/* ---------- Éditeur ---------- */
+function el(tag, props, ...kids){
+  const e = document.createElement(tag);
+  Object.assign(e, props || {});
+  kids.forEach(k => e.append(k));
+  return e;
+}
+
+function champ(label, obj, key, opts){
+  opts = opts || {};
+  const inp = el(opts.multi ? "textarea" : "input", {value: obj[key]});
+  if(opts.number){ inp.type = "number"; inp.inputMode = "numeric"; inp.min = "0"; }
+  if(opts.digits){ inp.inputMode = "numeric"; }
+  inp.addEventListener("input", () => {
+    if(opts.number){ obj[key] = Number(inp.value) || 0; }
+    else if(opts.digits){ obj[key] = inp.value.replace(/\D/g, ""); }
+    else { obj[key] = inp.value; }
+    render();
+  });
+  return el("label", {className: "champ"}, el("span", {textContent: label}), inp);
+}
+
+function menuEditeur(box){
+  box.textContent = "";
+  CONFIG.menu.forEach((cat, ci) => {
+    const bloc = el("div", {className: "ed-cat"});
+    bloc.append(champ("Nom de la catégorie", cat, "categorie"));
+    cat.plats.forEach((p, pi) => {
+      const b = el("div", {className: "ed-plat"});
+      b.append(
+        champ("Nom du plat", p, "nom"),
+        champ("Description", p, "desc"),
+        champ("Prix en $", p, "usd", {number: true}),
+        champ("Prix en FC", p, "fc", {number: true})
+      );
+      const sup = el("button", {type: "button", className: "ed-sup", textContent: "Supprimer ce plat"});
+      sup.onclick = () => { cat.plats.splice(pi, 1); render(); menuEditeur(box); };
+      b.append(sup);
+      bloc.append(b);
+    });
+    const ajout = el("button", {type: "button", className: "ed-add", textContent: "Ajouter un plat"});
+    ajout.onclick = () => { cat.plats.push({nom: "Nouveau plat", desc: "", usd: 0, fc: 0}); render(); menuEditeur(box); };
+    const supCat = el("button", {type: "button", className: "ed-sup", textContent: "Supprimer la catégorie"});
+    supCat.onclick = () => {
+      if(confirm("Supprimer cette catégorie et tous ses plats ?")){ CONFIG.menu.splice(ci, 1); render(); menuEditeur(box); }
+    };
+    bloc.append(ajout, supCat);
+    box.append(bloc);
+  });
+  const ajoutCat = el("button", {type: "button", className: "ed-add", textContent: "Ajouter une catégorie"});
+  ajoutCat.onclick = () => { CONFIG.menu.push({categorie: "Nouvelle catégorie", plats: []}); render(); menuEditeur(box); };
+  box.append(ajoutCat);
+}
+
+function telecharger(){
+  const cfg = "const CONFIG = " + JSON.stringify(CONFIG, null, 2) + ";";
+  let html = SOURCE.replace(/const CONFIG = \{[\s\S]*?\n\};/, () => cfg);
+  const titre = "<title>" + CONFIG.nom.replace(/</g, "&lt;") + " – " + CONFIG.ville.replace(/</g, "&lt;") + "</" + "title>";
+  html = html.replace(/<title>[\s\S]*?<\/title>/, () => titre);
+  const blob = new Blob([html], {type: "text/html"});
+  const a = el("a", {href: URL.createObjectURL(blob), download: "index.html"});
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function fermerEditeur(){
+  const ed = $("editeur");
+  if(ed) ed.remove();
+  if(location.hash === "#modifier") history.replaceState(null, "", location.pathname + location.search);
+  document.body.style.overflow = "";
+}
+
+function ouvrirEditeur(){
+  if($("editeur")) return;
+  const ed = el("div", {id: "editeur"});
+
+  const haut = el("div", {className: "ed-haut"},
+    el("h2", {textContent: "Modifier le site"}),
+    el("p", {textContent: "Le site se met à jour pendant que tu écris. Quand tu as fini, touche « Télécharger » puis remplace index.html sur GitHub."})
+  );
+
+  const corps = el("div", {className: "ed-corps"});
+  corps.append(el("h3", {textContent: "Le restaurant"}));
+  corps.append(
+    champ("Nom", CONFIG, "nom"),
+    champ("Phrase d'accroche", CONFIG, "accroche"),
+    champ("Ville", CONFIG, "ville"),
+    champ("Numéro WhatsApp (chiffres seulement, ex : 243812345678)", CONFIG, "whatsapp", {digits: true}),
+    champ("Téléphone affiché", CONFIG, "telephone"),
+    champ("Adresse", CONFIG, "adresse"),
+    champ("Horaires", CONFIG, "horaires")
+  );
+
+  corps.append(el("h3", {textContent: "Plat du jour"}));
+  const dj = CONFIG.platDuJour;
+  corps.append(
+    champ("Nom du plat", dj, "nom"),
+    champ("Description", dj, "description", {multi: true}),
+    champ("Prix en $", dj, "prixUSD", {number: true}),
+    champ("Prix en FC", dj, "prixFC", {number: true})
+  );
+
+  corps.append(el("h3", {textContent: "Menu"}));
+  const boxMenu = el("div");
+  corps.append(boxMenu);
+  menuEditeur(boxMenu);
+
+  const bas = el("div", {className: "ed-bas"});
+  const dl = el("button", {type: "button", className: "ed-dl", textContent: "Télécharger"});
+  dl.onclick = telecharger;
+  const fer = el("button", {type: "button", className: "ed-fermer", textContent: "Fermer"});
+  fer.onclick = fermerEditeur;
+  bas.append(dl, fer);
+
+  ed.append(haut, corps, bas);
+  document.body.appendChild(ed);
+  document.body.style.overflow = "hidden";
+}
+
+render();
+if(location.hash === "#modifier") ouvrirEditeur();
+window.addEventListener("hashchange", () => {
+  if(location.hash === "#modifier") ouvrirEditeur();
+});
+</script>
+</body>
+</html>
